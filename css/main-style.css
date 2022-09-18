@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+html :is(*, *::before, *::after) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:root {
+    /* game-model */
+    --main-background: url(img/main-background.png) no-repeat center/cover;
+    --main-ground: url(img/ground.png) no-repeat center/cover;
+    --main-model: url(img/main-model-mouve.gif) no-repeat center/cover;
+    --main-modelDaed: url(img/model-daed.png) no-repeat center/cover;
+    --block: url(img/block.png) no-repeat center/cover;
+    --background-card: url(img/background-card.png) no-repeat center/cover;
+    --customPpointer: url(img/custom-pointer.png), pointer;
+
+    /* transition */
+    --tran3: 300ms ease;
+    --tran5: 500ms ease-in-out;
+
+    /* text */
+    --startMess: "space bar to start";
+
+    /* color */
+    --white-clr: #fff;
+    --black-clr: #000;
+    --body-clr: #121212;
+    --gray-clr: #5D5D64;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: 'Silkscreen', cursive;
+    background-color: var(--body-clr);
+    color: var(--white-clr);
+}
+
+/* main-section =================================== */
+main {
+    width: 800px;
+    aspect-ratio: 16/9;
+    outline: 5px solid var(--black-clr);
+    position: relative;
+    overflow: hidden;
+    border-radius: .5em;
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    -ms-border-radius: .5em;
+    -o-border-radius: .5em;
+    display: flex;
+    justify-content: space-around;
+    padding-top: .5em;
+}
+
+main::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--add, none);
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    transition: var(--tran3);
+    -webkit-transition: var(--tran3);
+    -moz-transition: var(--tran3);
+    -ms-transition: var(--tran3);
+    -o-transition: var(--tran3);
+}
+
+main::after {
+    content: var(--startMess);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    font-size: 28px;
+    font-weight: bold;
+    -webkit-text-stroke: 1.5px var(--black-clr);
+    animation: startMess 1s linear infinite alternate;
+    -webkit-animation: startMess 1s linear infinite alternate;
+}
+
+@keyframes startMess {
+    0% {
+        scale: .8 1.3;
+    }
+
+    50% {
+        scale: 1;
+    }
+
+    100% {
+        scale: 1.2 1.4;
+    }
+}
+
+/* main-model ======================================= */
+.main-model {
+    position: absolute;
+    left: 1em;
+    bottom: 18px;
+    height: 100px;
+    width: 90px;
+    z-index: 200;
+}
+
+.main-model img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.main-model.jump {
+    animation: jumpAnimation 500ms linear forwards;
+    -webkit-animation: jumpAnimation 500ms linear forwards;
+}
+
+@keyframes jumpAnimation {
+
+    0%,
+    100% {
+        top: 150px;
+    }
+
+    30%,
+    70% {
+        top: 100px;
+    }
+}
+
+/* block =====================================*/
+.block {
+    width: 30px;
+    height: 75px;
+    position: absolute;
+    right: -3em;
+    bottom: 25px;
+
+    --duration: 1.5s;
+}
+
+.block img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.block.mouve {
+    animation: mouveAnimation var(--duration) 1.5s linear infinite;
+    -webkit-animation: mouveAnimation var(--duration) 1.5s linear infinite;
+}
+
+@keyframes mouveAnimation {
+    0% {
+        left: 800px;
+    }
+
+    100% {
+        left: -40px;
+    }
+}
+
+/* ground =======================================*/
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    z-index: 100;
+    --duration-ground: 2s;
+}
+
+.ground img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.ground.ground-mouve {
+    animation: groundAnimation var(--duration-ground) linear infinite;
+    -webkit-animation: groundAnimation var(--duration-ground) linear infinite;
+}
+
+@keyframes groundAnimation {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -800px;
+    }
+}
+
+/* cloud ====================================== */
+.cloud {
+    position: absolute;
+    top: -1em;
+    width: 100%;
+    height: 50px;
+    z-index: 50;
+}
+
+.cloud.cloud-mouve {
+    animation: cloudAnimation 60s linear infinite alternate;
+    -webkit-animation: cloudAnimation 60s linear infinite alternate;
+}
+
+@keyframes cloudAnimation {
+    0% {
+        left: 0;
+    }
+
+    100% {
+        left: -800px;
+    }
+}
+
+/* score ==================================== */
+.score {
+    font-size: large;
+}
+
+.score b {
+    line-height: 1.5;
+}
+
+/* lose-alert =================================== */
+.lose-alert {
+    position: absolute;
+    left: 50%;
+    translate: -50%0;
+    width: 400px;
+    height: 435px;
+    z-index: 200;
+    transition: scale var(--tran3);
+    -webkit-transition: scale var(--tran3);
+    -moz-transition: scale var(--tran3);
+    -ms-transition: scale var(--tran3);
+    -o-transition: scale var(--tran3);
+    padding: 8.5em 1em 1em;
+    display: grid;
+    place-items: center;
+}
+
+.lose-alert.lose-act {
+    animation: toggle var(--tran5) forwards;
+    -webkit-animation: toggle var(--tran5) forwards;
+    top: -400px;
+    z-index: 10000;
+}
+
+@keyframes toggle {
+    100% {
+        top: -30px;
+    }
+}
+
+.lose-content {
+    display: grid;
+    place-items: center;
+    font-size: 40px;
+    color: var(--gray-clr);
+    -webkit-text-stroke: var(--white-clr) 1px;
+    font-weight: bold;
+}
+
+.lose-content h1 {
+    font-weight: bold;
+    scale: 0;
+    animation: gameover 500ms 300ms ease-in forwards;
+    -webkit-animation: gameover 500ms 300ms ease-in forwards;
+    font-size: inherit;
+}
+
+@keyframes gameover {
+    to {
+        scale: 1;
+    }
+}
+
+.lose-content :is(.score-card, .time-card) {
+    margin-bottom: .2em;
+    font-size: x-large;
+}
+
+.time-card {
+    animation: time 500ms 500ms linear forwards;
+    -webkit-animation: time 500ms 500ms linear forwards;
+}
+
+.score-card {
+    animation: score 500ms 500ms linear forwards;
+    -webkit-animation: score 500ms 500ms linear forwards;
+}
+
+@keyframes time {
+    from {
+        translate: 50%;
+    }
+
+    to {
+        translate: none;
+    }
+}
+
+@keyframes score {
+    from {
+        translate: -50%;
+    }
+
+    to {
+        translate: none;
+    }
+}
+
+.btns {
+    display: flex;
+    gap: .4em;
+}
+
+:is(#btn-restart, #btn-settings) {
+    width: 50px;
+    height: 50px;
+}
