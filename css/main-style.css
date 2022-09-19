@@ -420,8 +420,8 @@ main::after {
     width: 0;
     height: 100%;
     background-color: var(--white-clr);
-    animation: load 500ms ease infinite;
-    -webkit-animation: load 500ms ease infinite;
+    animation: load 3s ease infinite;
+    -webkit-animation: load 3s ease infinite;
 }
 
 @keyframes load {

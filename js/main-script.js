@@ -20,11 +20,12 @@ const mainSection = document.querySelector("main"),
 loading.addEventListener("click", () => {
     mainSection.removeEventListener("click", mainJump);
     window.removeEventListener("keydown", keyControle);
-})
+});
 
-window.addEventListener("load", () => {
-    loading.style.display = "none"
-})
+setTimeout(() => {
+    loading.style.cssText
+        = "opacity:0; z-index:-1;";
+}, 3000);
 
 // game desing 
 mainSection.style.cssText = "background:var(--main-background) ; cursor:var(--customPpointer);";
