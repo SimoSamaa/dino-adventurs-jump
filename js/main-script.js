@@ -13,7 +13,18 @@ const mainSection = document.querySelector("main"),
     songLose = document.querySelector("#song-lose"),
     ground = document.querySelector(".ground"),
     cloud = document.querySelector(".cloud"),
-    backSong = document.querySelector(".background-song");
+    backSong = document.querySelector(".background-song"),
+    loading = document.querySelector(".loading");
+
+//loading
+loading.addEventListener("click", () => {
+    mainSection.removeEventListener("click", mainJump);
+    window.removeEventListener("keydown", keyControle);
+})
+
+window.addEventListener("load", () => {
+    loading.style.display = "none"
+})
 
 // game desing 
 mainSection.style.cssText = "background:var(--main-background) ; cursor:var(--customPpointer);";
@@ -43,11 +54,17 @@ function mainJump() {
     audio.setAttribute("src", "audio/jump-jump.mp3");
     audio.play();
 
+    if (localStorage.getItem("lose-song-data")) {
+        audio.pause();
+    } else audio.play();
+
     mainModel.addEventListener("animationend", () => {
         mainModel.classList.remove("jump");
     });
 
-    backSong.play();
+    if (localStorage.getItem("music-bg-data")) {
+        backSong.pause();
+    } else backSong.play();
 
     document.documentElement.style.setProperty("--startMess", " ");
 
@@ -81,7 +98,7 @@ function gameTime(m = "0", s = "0") {
     } else if (m == 1) {
         block.style.cssText = "background:none; width:100px; height:50px; --duration:.8s; ";
         block.innerHTML = "<img src='img/block-three.png'></img>";
-        ground.style.cssText = "--duration-ground:1s;"
+        ground.style.cssText = "--duration-ground:1s;";
     }
 };
 
@@ -118,6 +135,15 @@ let checkDead = setInterval(() => {
                 <div id="btn-settings">
                     <img src="img/settings icon.svg"></img >
                 </div>
+                <div class="settings">
+                    <div class="close-settings">
+                        <img src="img/close.svg"></img>
+                    </div>
+                    <div class="audio-control">
+                        <div class="control-bg-song control-all"><span></span></div>
+                        <div class="control-bg-sfx control-all"><span></span></div>
+                    </div>
+                </div>
             </div>
         </div>`;
 
@@ -126,13 +152,73 @@ let checkDead = setInterval(() => {
         loseAlert.style.cssText = "background:var(--background-card) ;";
         songLose.play();
 
+        // button game restart
         document.getElementById("btn-restart").onclick = () => {
             window.location.reload();
         };
 
-        document.documentElement.style.setProperty("--add", "rgb(0 0 0/70%)")
+        // button game settings
+        document.getElementById("btn-settings").onclick = () => {
+            document.querySelector(".settings").style.cssText
+                = "background: url(img/bg-settings.png) no-repeat center/cover; display:grid;";
+        };
 
-        // stope gma time
+        // button close settings
+        document.querySelector(".close-settings").onclick = () => {
+            document.querySelector(".settings").style.display = "none"
+        };
+
+        // setting music control
+        let toggleOne = document.querySelector(".control-bg-song span")
+        toggleOne.style.cssText = "background: url(img/toggle.png) no-repeat center/cover;"
+
+        localOne = localStorage.getItem("toggleOne");
+        if (localOne === "active") {
+            toggleOne.classList.toggle("active")
+        }
+
+        document.querySelector(".control-bg-song").onclick = () => {
+            if (toggleOne.classList.toggle("active") && backSong.played) {
+                backSong.pause()
+                localStorage.setItem("toggleOne", "active");
+                localStorage.setItem("music-bg-data", backSong.src);
+            } else {
+                backSong.play()
+                localStorage.setItem("toggleOne", "desactive");
+                localStorage.removeItem("music-bg-data")
+            };
+        };
+
+        if (localStorage.getItem("music-bg-data")) {
+            backSong.src = localStorage["music-bg-data"];
+        };
+
+        // setting sfx control
+        let toggleTwo = document.querySelector(".control-bg-sfx span");
+        toggleTwo.style.cssText = "background: url(img/toggle.png) no-repeat center/cover;";
+
+        localTow = localStorage.getItem("toggleTwo");
+        if (localTow === "active-sfx") {
+            toggleTwo.classList.toggle("active-sfx");
+        };
+
+        document.querySelector(".control-bg-sfx").onclick = () => {
+            if (toggleTwo.classList.toggle("active-sfx")) {
+                localStorage.setItem("lose-song-data", songLose.src)
+                localStorage.setItem("toggleTwo", "active-sfx")
+            } else {
+                localStorage.setItem("toggleTwo", "desactive-sfx")
+                localStorage.removeItem("lose-song-data")
+            };
+        };
+
+        if (localStorage.getItem("lose-song-data")) {
+            songLose.src = localStorage["lose-song-data"];
+        };
+
+        document.documentElement.style.setProperty("--add", "rgb(0 0 0/70%)");
+
+        // stope game time
         clearInterval(clearTime)
 
         // hidden score and time
@@ -147,7 +233,7 @@ let checkDead = setInterval(() => {
     // score
     setTimeout(() => {
         if (blockCheck <= 0) {
-            score.textContent = Math.floor(incScore++ / 14.5);
+            score.textContent = Math.floor(incScore++ / 15);
         };
     }, 250);
 });
@@ -160,5 +246,4 @@ function keyControle(e) {
 };
 
 window.addEventListener("keydown", keyControle);
-
 
