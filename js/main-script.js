@@ -25,9 +25,10 @@ loading.addEventListener("click", () => {
 setTimeout(() => {
     loading.style.cssText
         = "opacity:0; z-index:-1;";
-}, 3000);
+}, 2500);
 
 // game desing 
+loading.style.cssText = "background:var(--bgLoading);";
 mainSection.style.cssText = "background:var(--main-background) ; cursor:var(--customPpointer);";
 block.style.cssText = "background:var(--block) ;";
 ground.style.cssText = "background:var(--main-ground);";

@@ -15,6 +15,7 @@ html :is(*, *::before, *::after) {
     --main-modelDaed: url(img/model-daed.png) no-repeat center/cover;
     --block: url(img/block.png) no-repeat center/cover;
     --background-card: url(img/background-card.png) no-repeat center/cover;
+    --bgLoading: url(img/bg-loading.png) no-repeat center/cover;
     --customPpointer: url(img/custom-pointer.png), pointer;
 
     /* transition */
@@ -412,16 +413,17 @@ main::after {
     left: 50%;
     translate: -50% 0;
     width: 90%;
-    height: 20px;
-    outline: 5px solid var(--black-clr);
+    height: 15px;
+    outline: 2px solid var(--black-clr);
+    background-color: rgba(255, 255, 255, 0.404);
 }
 
 .loading-progrees-line {
     width: 0;
     height: 100%;
     background-color: var(--white-clr);
-    animation: load 3s ease infinite;
-    -webkit-animation: load 3s ease infinite;
+    animation: load 2.5s ease infinite;
+    -webkit-animation: load 2.5s ease infinite;
 }
 
 @keyframes load {
