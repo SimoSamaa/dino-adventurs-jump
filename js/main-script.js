@@ -17,17 +17,31 @@ const mainSection = document.querySelector("main"),
     loading = document.querySelector(".loading");
 
 //loading
-loading.addEventListener("click", () => {
-    mainSection.removeEventListener("click", mainJump);
-    window.removeEventListener("keydown", keyControle);
-});
+// loading.addEventListener("click", () => {
+//     mainSection.removeEventListener("click", mainJump);
+//     window.removeEventListener("keydown", keyControle);
+// });
 
-setTimeout(() => {
-    loading.style.cssText
-        = "opacity:0; z-index:-1;";
-    mainSection.addEventListener("click", mainJump);
-    window.addEventListener("keydown", keyControle);
-}, 2500);
+// setTimeout(() => {
+//     loading.style.cssText
+//         = "opacity:0; z-index:-1;";
+//     mainSection.addEventListener("click", mainJump);
+//     window.addEventListener("keydown", keyControle);
+// }, 2500);
+
+window.addEventListener("load", () => {
+    loading.addEventListener("click", () => {
+        mainSection.removeEventListener("click", mainJump);
+        window.removeEventListener("keydown", keyControle);
+    });
+
+    setTimeout(() => {
+        loading.style.cssText
+            = "opacity:0; z-index:-1;";
+        mainSection.addEventListener("click", mainJump);
+        window.addEventListener("keydown", keyControle);
+    }, 2500);
+})
 
 // game desing 
 loading.style.cssText = "background:var(--bgLoading);";
