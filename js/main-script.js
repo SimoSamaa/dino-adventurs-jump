@@ -25,6 +25,8 @@ loading.addEventListener("click", () => {
 setTimeout(() => {
     loading.style.cssText
         = "opacity:0; z-index:-1;";
+    mainSection.addEventListener("click", mainJump);
+    window.addEventListener("keydown", keyControle);
 }, 2500);
 
 // game desing 

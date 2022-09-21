@@ -447,3 +447,51 @@ main::after {
         width: 100%;
     }
 }
+
+/* download */
+.download {
+    position: absolute;
+    bottom: 5em;
+    font-family: sans-serif;
+    background-color: var(--white-clr);
+    width: 200px;
+    height: 50px;
+    /* display: grid;
+    place-items: center; */
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.download a {
+    color: var(--black-clr);
+    text-decoration: none;
+    display: flex;
+    height: 100%;
+}
+
+.download a span:first-child {
+    letter-spacing: 3px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding-inline: 1em;
+}
+
+.download a span:last-child {
+    background-color: #ddd;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.download a:hover span i {
+    display: none;
+}
+
+.download a:hover span #android {
+    display: block !important;
+}
