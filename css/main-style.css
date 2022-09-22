@@ -495,3 +495,13 @@ main::after {
 .download a:hover span #android {
     display: block !important;
 }
+
+@media (max-width:826px) {
+    main {
+        display: none;
+    }
+
+    .download {
+        position: static;
+    }
+}
