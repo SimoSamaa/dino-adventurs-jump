@@ -456,8 +456,6 @@ main::after {
     background-color: var(--white-clr);
     width: 200px;
     height: 50px;
-    /* display: grid;
-    place-items: center; */
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
